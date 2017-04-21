@@ -16,15 +16,14 @@ import gameutil2d.classes.text.*;
 public class GameMain {
 
 
-    Image background;
-    Image background1, background2;
 
+    Image background, background1, background2;
     Image jogador;
     Image seta_esquerda, seta_direita;
 
     enum Acao { PARADO, SENTIDO_HORARIO, SENTIDO_ANTIHORARIO};
-    Acao acaoS = Acao.PARADO;
 
+    Acao acaoPassaro = Acao.PARADO;
 
     public GameMain(Context context)
     {
@@ -34,8 +33,8 @@ public class GameMain {
 
         //Insira seu código aqui
         background=new Image(context,R.drawable.cenariop,0,-100,1500,700);
-        background1=new Image(context, R.drawable.c1q,-220,-145,1500,800);
-        background2=new Image(context, R.drawable.c1aq,-200,-185,1500,787);
+        background1=new Image(context,R.drawable.c1q,-220,-150,1500,700);
+        background2=new Image(context,R.drawable.c1aq,0,-150,1500,700);
         jogador=new Image(context,R.drawable.jogador,0,0,800,500);
         seta_direita = new Image(context,R.drawable.seta_direita_vermelha,800 - 96, 480 - 96,96,96);
         seta_esquerda = new Image(context,R.drawable.seta_esquerda_vermelha,0, 480 - 96,96,96);
@@ -61,23 +60,19 @@ public class GameMain {
         //Método responsável pela execução da lógica do jogo (movimento, ação, colisões e etc.)
 
         //Insira seu código aqui
-        /*background.MoveByX(-1);
-        if(background.GetX() < -680)
-            background.SetX(0)*/;
 
-
-        if(acaoS == Acao.SENTIDO_HORARIO){
-            //Move o passaro (até o limite da tela)
+        if(acaoPassaro == Acao.SENTIDO_HORARIO)
+        {
             background1.MoveByX(-1);
-            if(background1.GetX() < -500)
-                background1.SetX(-230);
+            if(background1.GetX() < -480)
+                background1.SetX(-220);
         }
-
-        if(acaoS == Acao.SENTIDO_ANTIHORARIO){
+        else if (acaoPassaro == Acao.SENTIDO_ANTIHORARIO)
+        {
             //Move o passaro (até o limite da tela)
             background2.MoveByX(1);
-            if(background2.GetX() > -210)
-                background2.SetX(-450);
+            if(background2.GetX() > -220)
+                background2.SetX(-480);
         }
     }
 
@@ -86,48 +81,38 @@ public class GameMain {
         //Método responsável por desenhar todos os elementos do jogo na tela (através do objeto "spriteBatcher")
 
         //Insira seu código aqui
-        if(acaoS == Acao.PARADO) {
+
+        if (acaoPassaro == Acao.PARADO) {
             background.Draw(spriteBatcher);
         }
-
-        else if(acaoS == Acao.SENTIDO_ANTIHORARIO){
-            background2.Draw(spriteBatcher);
-        }
-
-        else if(acaoS == Acao.SENTIDO_HORARIO){
+        else if(acaoPassaro == Acao.SENTIDO_HORARIO){
             background1.Draw(spriteBatcher);
         }
-
+        else if(acaoPassaro == Acao.SENTIDO_ANTIHORARIO){
+            background2.Draw(spriteBatcher);
+        }
         jogador.Draw(spriteBatcher);
         seta_direita.Draw(spriteBatcher);
         seta_esquerda.Draw(spriteBatcher);
+
     }
 
-    public void onTouch(MotionEvent e)
-    {
+    public void onTouch(MotionEvent e) {
         //Método executado quando ocorre algum evento de toque sobre a superficie da tela
 
         //Insira seu código aqui
-        if(e.getAction() == MotionEvent.ACTION_DOWN)
-        {
+        if (e.getAction() == MotionEvent.ACTION_DOWN) {
             //Seta direta foi tocada ????
-            if(seta_direita.IsTouch(e.getX(),e.getY()))
-            {
-                acaoS = Acao.SENTIDO_HORARIO;
-
-            }
-            else if(seta_esquerda.IsTouch(e.getX(),e.getY()))
-            {
-                acaoS = Acao.SENTIDO_ANTIHORARIO;
-
-
+            if (seta_direita.IsTouch(e.getX(), e.getY())) {
+                acaoPassaro = Acao.SENTIDO_HORARIO;
+            } else if (seta_esquerda.IsTouch(e.getX(), e.getY())) {
+                acaoPassaro = Acao.SENTIDO_ANTIHORARIO;
             }
         }    //tirou o dedo da tela
         else if(e.getAction() == MotionEvent.ACTION_UP)
         {
-            acaoS = Acao.PARADO;
+            acaoPassaro = Acao.PARADO;
         }
-
     }
 
     public void onExitGame()
@@ -149,21 +134,18 @@ public class GameMain {
 
     public void onResumeGame()
     {
-       // Disparado quando a aplicação volta a ser executada
+        // Disparado quando a aplicação volta a ser executada
 
-       // Insira seu código aqui
+        // Insira seu código aqui
 
     }
 
     public void onBackButtonPressed()
     {
         /*
-
            OBS: Para esse evento funcionar execute a instrução abaixo no método GameMain
            ((GameActivity) context).SetCanClose(false);
-
            Esse método é executado quando o botão BACK do aparelho é pressionado
-
          */
 
         // Insira seu código aqui
