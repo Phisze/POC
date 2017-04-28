@@ -33,8 +33,8 @@ public class GameMain {
 
         //Insira seu código aqui
         background=new Image(context,R.drawable.cenariop,0,-100,1500,700);
-        background1=new Image(context,R.drawable.c1q,-220,-150,1500,700);
-        background2=new Image(context,R.drawable.c1aq,0,-150,1500,700);
+        background1=new Image(context,R.drawable.c1aq,-220,-150,1500,700);
+        background2=new Image(context,R.drawable.c1q,0,-150,1500,700);
         jogador=new Image(context,R.drawable.jogador,0,0,800,500);
         seta_direita = new Image(context,R.drawable.seta_direita_vermelha,800 - 96, 480 - 96,96,96);
         seta_esquerda = new Image(context,R.drawable.seta_esquerda_vermelha,0, 480 - 96,96,96);
@@ -63,14 +63,16 @@ public class GameMain {
 
         if(acaoPassaro == Acao.SENTIDO_HORARIO)
         {
-            background1.MoveByX(-1);
+            background1.MoveByX(-2);
+            background1.MoveByY(-1);
             if(background1.GetX() < -480)
                 background1.SetX(-220);
         }
         else if (acaoPassaro == Acao.SENTIDO_ANTIHORARIO)
         {
             //Move o passaro (até o limite da tela)
-            background2.MoveByX(1);
+            background2.MoveByX(2);
+            background2.MoveByY(1);
             if(background2.GetX() > -220)
                 background2.SetX(-480);
         }
