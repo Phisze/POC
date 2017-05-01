@@ -20,6 +20,10 @@ public class GameMain {
     Image background, background1, background2;
     Image jogador;
     Image seta_esquerda, seta_direita;
+    Image xaviao;
+    Image zaviao;
+    Image zepelin;
+
 
     enum Acao { PARADO, SENTIDO_HORARIO, SENTIDO_ANTIHORARIO};
 
@@ -35,7 +39,13 @@ public class GameMain {
         background=new Image(context,R.drawable.cenariop,0,-100,1500,700);
         background1=new Image(context,R.drawable.c1aq,-220,-150,1500,700);
         background2=new Image(context,R.drawable.c1q,0,-150,1500,700);
+
         jogador=new Image(context,R.drawable.jogador,0,0,800,500);
+
+        zaviao = new Image(context,R.drawable.javiao,650,130,140,70);
+        xaviao = new Image(context,R.drawable.haviao,0,130,140,70);
+        zepelin = new Image(context,R.drawable.jhzepelin,350,130,140,70);
+
         seta_direita = new Image(context,R.drawable.seta_direita_vermelha,800 - 96, 480 - 96,96,96);
         seta_esquerda = new Image(context,R.drawable.seta_esquerda_vermelha,0, 480 - 96,96,96);
     }
@@ -63,21 +73,34 @@ public class GameMain {
 
         if(acaoPassaro == Acao.SENTIDO_HORARIO)
         {
-            background1.MoveByX(-2);
-            background1.MoveByY(-1);
-            if(background1.GetX() < -480)
-                background1.SetX(-220);
+            xaviao.MoveByX(-3);
+            zaviao.MoveByX(-3);
+            zepelin.MoveByX(-3);
+            background1.MoveByX(-4);
+            if(background1.GetX() < -480){
+            background1.SetX(-220);
+        }
+            background1.MoveByY(1);
+            if(background1.GetY() > -100){
+                background1.SetY(-150);
+            }
         }
         else if (acaoPassaro == Acao.SENTIDO_ANTIHORARIO)
         {
             //Move o passaro (até o limite da tela)
-            background2.MoveByX(2);
-            background2.MoveByY(1);
-            if(background2.GetX() > -220)
+            xaviao.MoveByX(3);
+            zaviao.MoveByX(3);
+            zepelin.MoveByX(3);
+            background2.MoveByX(4);
+            if(background2.GetX() > -220){
                 background2.SetX(-480);
         }
+            background2.MoveByY(1);
+            if(background2.GetY() > -100){
+                background2.SetY(-150);
+            }
     }
-
+    }
     public void Draw(SpriteBatcher spriteBatcher)
     {
         //Método responsável por desenhar todos os elementos do jogo na tela (através do objeto "spriteBatcher")
@@ -94,6 +117,11 @@ public class GameMain {
             background2.Draw(spriteBatcher);
         }
         jogador.Draw(spriteBatcher);
+
+        zaviao.Draw(spriteBatcher);
+        xaviao.Draw(spriteBatcher);
+        zepelin.Draw(spriteBatcher);
+
         seta_direita.Draw(spriteBatcher);
         seta_esquerda.Draw(spriteBatcher);
 
@@ -123,6 +151,7 @@ public class GameMain {
 		   Adequado para a finalização de threads e músicas de fundo do jogo*/
 
         // Insira seu código aqui
+
 
     }
 
