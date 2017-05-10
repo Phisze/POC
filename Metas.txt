@@ -1,0 +1,3 @@
+Metas POC
+Fazer o inimigo se mexer semelhante ao cenario
+Fazer o inimigo voltar depois de um tempo
